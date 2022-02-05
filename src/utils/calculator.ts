@@ -1,18 +1,21 @@
-import { MathNodeCommon } from "mathjs";
+import nerdamer from "nerdamer";
 
-export const adjusted_chipload = (
-  woc: number,
-  cutter_diameter: number
+export const chip_thinning_chipload = nerdamer(
+  "(D_cutter * chipload) / (2 * sqrt((D_cutter * woc) - woc^2))"
+);
+export const non_chip_thinning_chipload = nerdamer("chipload");
+const piecewise = (
+  equations: { expr: string; condition: string }[]
 ): string => {
-  if (woc > cutter_diameter / 2) {
-    return "chipload";
-  } else {
-    return "(cutter_diameter * chipload) / (2 * sqrt((cutter_diameter * woc) - woc^2))";
-  }
+  const parsed = equations
+    .map((ea) => `${ea.expr} \\quad ${ea.condition}`)
+    .join(" \\\\ ");
+  return `\\left\\{ \\begin{array}{ll} ${parsed} \\end{array} \\right.`;
 };
 
-// return self.chipload
-// else:
-// return (self.cutter.diameter * self.chipload) / (
-//   2.0 * sqrt((self.cutter.diameter * self.woc) - pow(self.woc, 2))
-// )
+export const adjusted_chipload_latex = piecewise([
+  { expr: non_chip_thinning_chipload.toTeX(), condition: "\\quad \\quad \\quad woc > D_{cutter} / 2" },
+  { expr: chip_thinning_chipload.toTeX(), condition: "else" },
+]);
+
+// f(x) =
