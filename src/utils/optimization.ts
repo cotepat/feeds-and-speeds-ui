@@ -21,6 +21,7 @@ export interface Optimization {
   rpm: number;
 
   results: Record<string, number>[];
+  tableColumnsToShow: string[];
 }
 
 export const optimizationsStore = new Store<Optimization[]>(
@@ -36,7 +37,11 @@ export interface MinMaxField {
 }
 
 const range = ({ min, max, count }: MinMaxField): number[] => {
-  return _.range(min, max, (max - min) / count);
+  if (count === 1) {
+    return [min];
+  }
+  const step = (max - min) / (count - 1);
+  return _.range(min, max + step, step);
 };
 
 export const executeOptimization = ({
@@ -57,7 +62,6 @@ export const executeOptimization = ({
   const docs = range(minMaxFields.doc);
   const wocs = range(minMaxFields.woc);
   const chiploads = range(minMaxFields.chipload);
-
   const constraints = constraintStrings.map((ea) => {
     return new Constraint(ea);
   });
@@ -109,13 +113,19 @@ export const executeOptimization = ({
           }
         }
 
-        const resultWithMetadata = { ...result, constraintFulfilled, count };
+        const resultWithMetadata = {
+          ...inputs,
+          ...result,
+          constraintFulfilled,
+          count,
+        };
         count++;
         return resultWithMetadata;
       });
     });
   }).sort((a, b) => {
     if (a.constraintFulfilled && b.constraintFulfilled) {
+      //@ts-ignore
       return b.materialRemovalRate - a.materialRemovalRate;
     } else if (a.constraintFulfilled && !b.constraintFulfilled) {
       return -1;
@@ -134,14 +144,14 @@ const regexes = {
   greaterThanOrEqual: /([A-z]+)\s*>=\s*([0-9\\.]+)/,
 };
 
-class Constraint {
+export class Constraint {
   key: string;
   value: number;
   type: keyof typeof regexes;
   constructor(private stringValue: string) {
     for (const [type, regex] of Object.entries(regexes)) {
       const matches = stringValue.match(regex);
-      if (matches.length >= 3) {
+      if (matches && matches.length >= 3) {
         if (isNumeric(matches[2])) {
           this.value = parseFloat(matches[2]);
           this.key = matches[1];

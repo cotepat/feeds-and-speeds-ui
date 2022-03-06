@@ -112,9 +112,8 @@ import { getOutputPower, Machine } from "@/utils/machine";
 import { Cutter, getYoungsModulus } from "@/utils/cutter";
 import { Material } from "@/utils/material";
 import nerdamer from "nerdamer";
-import { decimalNumber } from "@/utils/directives";
 
-@Component({ directives: { decimalNumber } })
+@Component
 export default class CalculatorForm extends Vue {
   @Prop({ required: true }) calculator!: Calculator;
   @Prop({ required: true }) potentialCutters!: Cutter[];
@@ -165,6 +164,7 @@ export default class CalculatorForm extends Vue {
       cutterOverallStickout: this.cutter.overallStickout,
       cutterYoungsModulus: getYoungsModulus(this.cutter.material),
       cutterShankDiameter: this.cutter.shankDiameter,
+      cutterLength: this.cutter.length
     };
   }
 
