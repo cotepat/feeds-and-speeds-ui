@@ -27,5 +27,5 @@ export class Machine {
 
 export const machineStore = new Store<Machine>(
   "machine",
-  new Machine("Adam's Shapeoko", 18.0, new Router(120.0, 6.5, 0.6, 30000.0))
+  new Machine("Kilroy KillerBee", 20.0, new Router(220.0, 10.0, 0.7, 24000.0))
 );
