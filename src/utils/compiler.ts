@@ -9,6 +9,7 @@
 //Need to solve for every combination and compile to functions
 import nerdamer from "nerdamer";
 import { allMathStrings, Inputs } from "@/utils/calculator";
+import * as fs from "fs";
 
 interface ConditionalInput {
   cutterDiameter: number;
@@ -248,11 +249,15 @@ const execute = () => {
     }
   );
 
-  const json = JSON.stringify(compilerOutputs)
-    .replaceAll('"', "")
-    .replaceAll("\\n", "");
+  const json = JSON.stringify(compilerOutputs, null, 2); // Pretty print JSON
 
-  console.log(json);
+  // Write output directly to compiled.ts
+  fs.writeFileSync("src/utils/compiled.ts", `export const compiledFunctions = ${json};\n`);
+
+  console.log("✅ compiled.ts has been successfully generated!");
 };
+
+execute(); // Run automatically
+
 
 // execute();
