@@ -96,11 +96,11 @@ export default class Calculators extends Vue {
         machine: this.defaultMachine,
         cutter: this.defaultCutter,
         material: this.defaultMaterial,
-        chipload: 0.002,
+        chipload: 0.05,
         woc: this.defaultCutter.diameter * 0.5,
         doc: this.defaultCutter.diameter * 2,
         rpm: 18000,
-        maxAcceptableDeflection: 0.001,
+        maxAcceptableDeflection: 0.02,
       },
     };
   }

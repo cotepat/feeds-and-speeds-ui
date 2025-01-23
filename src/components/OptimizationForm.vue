@@ -191,7 +191,7 @@ export default class OptimizationForm extends Vue {
   numberFields = {
     rpm: { name: "RPM", value: 0 },
     maxAcceptableDeflection: {
-      name: "Maximum Acceptable Deflection (in)",
+      name: "Maximum Acceptable Deflection (mm)",
       value: 0,
     },
   };

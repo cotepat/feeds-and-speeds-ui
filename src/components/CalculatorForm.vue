@@ -179,12 +179,12 @@ export default class CalculatorForm extends Vue {
   }
 
   numberFields = {
-    chipload: { name: "Chipload (in)", value: 0 },
-    woc: { name: "Width of Cut (in)", value: 0 },
-    doc: { name: "Depth of Cut (in)", value: 0 },
+    chipload: { name: "Chipload (mm)", value: 0 },
+    woc: { name: "Width of Cut (mm)", value: 0 },
+    doc: { name: "Depth of Cut (mm)", value: 0 },
     rpm: { name: "RPM", value: 0 },
     maxAcceptableDeflection: {
-      name: "Maximum Acceptable Deflection (in)",
+      name: "Maximum Acceptable Deflection (mm)",
       value: 0,
     },
   };

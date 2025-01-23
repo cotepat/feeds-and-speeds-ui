@@ -17,7 +17,7 @@
         <v-text-field
           v-model.number="machine.maximumMachineForce"
           :rules="[requiredRule('Maximum Machine Force')]"
-          label="Maximum Machine Force (lbf)"
+          label="Maximum Machine Force (N-mm)"
           required
         ></v-text-field>
       </div>
@@ -40,7 +40,7 @@
         <v-text-field
           v-model.number="machine.router.efficiency"
           :rules="[requiredRule('Efficiency')]"
-          label="Efficiency (Decimal)"
+          label="Efficiency (Percent as decimal)"
           required
         ></v-text-field>
         <v-text-field
