@@ -165,7 +165,7 @@ export default class CalculatorForm extends Vue {
     if (units[column]) {
       return `${units[column].formatting(value)} ${units[column].unit}`;
     } else {
-      return value;
+      return value.toString();
     }
   }
 

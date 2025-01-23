@@ -105,7 +105,7 @@
         </v-form>
       </v-col>
     </v-row>
-    <v-row v-if="optimization.results">
+    <v-row v-if="optimization.results && optimization.results.length > 0">
       <v-select
         v-model="tableColumnsToShow"
         @input="tableColumnsToShowUpdate"
@@ -131,7 +131,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="[key, row] of Object.entries(optimization.results)"
+              v-for="[key, row] of (optimization.results ? Object.entries(optimization.results) : [])"
               :key="key"
             >
               <td v-for="column of tableColumnsToShow" :key="column">
@@ -141,6 +141,9 @@
           </tbody>
         </template>
       </v-simple-table>
+    </v-row>
+    <v-row v-else>
+      <p>No results to display.</p>
     </v-row>
   </div>
 </template>
@@ -254,7 +257,7 @@ export default class OptimizationForm extends Vue {
     if (units[column]) {
       return units[column].formatting(value);
     } else {
-      return value;
+      return value.toString();
     }
   }
 
@@ -271,11 +274,15 @@ export default class OptimizationForm extends Vue {
 
   created() {
     //@ts-ignore
-    this.name = this.optimization.name;
-    this.machine = this.optimization.machine;
-    this.cutter = this.optimization.cutter;
-    this.material = this.optimization.material;
-    this.constraints = this.optimization.constraints.join("\n");
+    this.name = this.optimization?.name || "New Optimization";
+    this.machine = this.optimization?.machine || null;
+    this.cutter = this.optimization?.cutter || null;
+    this.material = this.optimization?.material || null;
+    this.constraints = (this.optimization?.constraints || []).join("\n");
+
+    // Initialize results if not provided
+    this.optimization.results = this.optimization.results || [];
+
     if (
       this.optimization.tableColumnsToShow &&
       this.optimization.tableColumnsToShow.length > 0
@@ -283,13 +290,13 @@ export default class OptimizationForm extends Vue {
       this.tableColumnsToShow = [...this.optimization.tableColumnsToShow];
     }
     for (const numberField of Object.keys(this.numberFields)) {
-      this.numberFields[numberField].value = this.optimization[numberField];
+      this.numberFields[numberField].value = this.optimization[numberField] || 0;
     }
     for (const minMaxField of Object.keys(this.minMaxFields)) {
-      this.minMaxFields[minMaxField].min = this.optimization[minMaxField].min;
-      this.minMaxFields[minMaxField].max = this.optimization[minMaxField].max;
+      this.minMaxFields[minMaxField].min = this.optimization[minMaxField]?.min || 0;
+      this.minMaxFields[minMaxField].max = this.optimization[minMaxField]?.max || 0;
       this.minMaxFields[minMaxField].count =
-        this.optimization[minMaxField].count;
+        this.optimization[minMaxField]?.count || 0;
     }
   }
 
