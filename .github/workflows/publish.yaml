@@ -24,6 +24,9 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Install
+      run: npm install --save-dev @types/node
+
     - name: Generate compiled.ts
       run: npx ts-node src/utils/compiler.ts
 
