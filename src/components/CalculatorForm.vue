@@ -161,12 +161,12 @@ export default class CalculatorForm extends Vue {
     return iterativelySubbed(this.inputs);
   }
 
-  valueDisplay(column: string, value: number | null | undefined): string {
-    if (value == null) return "N/A"; // Handle null or undefined values
+  valueDisplay(column: string, value: number): string {
     if (units[column]) {
       return `${units[column].formatting(value)} ${units[column].unit}`;
+    } else {
+      return value;
     }
-    return value.toString();
   }
 
   asTex(key: string) {

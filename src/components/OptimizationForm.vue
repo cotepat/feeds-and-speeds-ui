@@ -253,8 +253,9 @@ export default class OptimizationForm extends Vue {
   valueDisplayForTable(column: string, value: number): string {
     if (units[column]) {
       return units[column].formatting(value);
+    } else {
+      return value;
     }
-    return value.toString();
   }
 
   tableColumnsToShowUpdate(values: string[]) {
