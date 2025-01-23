@@ -254,7 +254,7 @@ export default class OptimizationForm extends Vue {
     if (units[column]) {
       return units[column].formatting(value);
     } else {
-      return value;
+      return value.to_string();
     }
   }
 
