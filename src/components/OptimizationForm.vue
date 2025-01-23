@@ -250,8 +250,7 @@ export default class OptimizationForm extends Vue {
     }
   }
 
-  valueDisplayForTable(column: string, value: number | null | undefined): string {
-    if (value == null) return "N/A"; // Handle null or undefined values
+  valueDisplayForTable(column: string, value: number): string {
     if (units[column]) {
       return units[column].formatting(value);
     }
