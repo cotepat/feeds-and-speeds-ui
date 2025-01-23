@@ -6,7 +6,9 @@
     "serve": "vue-cli-service serve --watch",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "generate:compiled": "ts-node src/utils/compiler.ts > src/utils/compiled.ts",
+    "build": "npm run generate:compiled && vue-cli-service build"
   },
   "dependencies": {
     "@types/lodash": "^4.14.179",
