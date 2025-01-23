@@ -22,15 +22,11 @@ jobs:
 
     # Step 3: Install dependencies
     - name: Install dependencies
-      run: |
-     #   export NODE_OPTIONS=--openssl-legacy-provider
-        npm install
+      run: npm install
 
     # Step 4: Build the project
     - name: Build the project
-      run: |
-      #  export NODE_OPTIONS=--openssl-legacy-provider
-        npm run build
+      run: npm run build
 
     # Step 5: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
