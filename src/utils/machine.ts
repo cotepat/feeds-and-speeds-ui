@@ -14,7 +14,7 @@ export const getInputPower = (router: Router) => {
 };
 
 export const getOutputPower = (router: Router) => {
-  return (getInputPower(router) * router.efficiency) / 745.7;
+  return (getInputPower(router) * router.efficiency) / 1000;
 };
 
 export class Machine {

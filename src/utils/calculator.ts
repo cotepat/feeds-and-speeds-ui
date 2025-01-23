@@ -35,7 +35,7 @@ export const materialRemovalRate = "feedrate * doc * woc";
 
 export const powerUsage = "materialRemovalRate / materialKFactor";
 
-export const torque = "(powerUsage * 63024.0) / rpm";
+export const torque = "(powerUsage * 7116.72) / rpm";
 
 export const machineForce = "torque / (cutterDiameter / 2)";
 
