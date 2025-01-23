@@ -94,5 +94,9 @@
   ],
   "jest": {
     "preset": "@vue/cli-plugin-unit-jest/presets/typescript-and-babel"
+  },
+  "scripts": {
+    "generate:compiled": "ts-node src/utils/compiler.ts > src/utils/compiled.ts",
+    "build": "npm run generate:compiled && vue-cli-service build"
   }
 }
