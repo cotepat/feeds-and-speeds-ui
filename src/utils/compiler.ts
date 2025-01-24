@@ -9,7 +9,8 @@
 //Need to solve for every combination and compile to functions
 import nerdamer from "nerdamer";
 import { allMathStrings, Inputs } from "@/utils/calculator";
-import * as fs from "fs";
+import fs from "fs";
+
 
 interface ConditionalInput {
   cutterDiameter: number;
